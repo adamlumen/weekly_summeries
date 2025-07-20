@@ -1,0 +1,23 @@
+# Super minimal requirements - just to get the app running without MCP conflicts
+# Use: pip install -r requirements-basic.txt
+
+# Core web framework
+fastapi>=0.110.0
+uvicorn[standard]>=0.24.0
+pydantic>=2.5.0
+python-dotenv>=1.0.0
+
+# OpenAI integration
+openai>=1.12.0
+
+# Basic database support (SQLite only)
+sqlalchemy>=2.0.0
+aiosqlite>=0.19.0
+
+# Essential utilities
+aiofiles>=23.2.0
+httpx>=0.27.0
+pyyaml>=6.0.0
+
+# Skip MCP for now to avoid dependency conflicts
+# mcp>=1.12.0

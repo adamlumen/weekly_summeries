@@ -1,0 +1,87 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Environment/config files
+.env
+*.env
+.env.*
+
+# Log files
+*.log
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Compiled files
+*.so
+*.pyd
+
+# Data and output
+*.csv
+*.tsv
+*.json
+*.xlsx
+*.xls
+*.parquet
+*.feather
+*.sqlite
+*.db
+*.h5
+*.hdf5
+*.pickle
+*.pkl
+*.joblib
+
+# Notebooks and docs
+*.ipynb
+*.md
+*.pdf
+*.docx
+*.html
+
+# Images and media
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.mp4
+*.mp3
+*.wav
+
+# Node and JS/TS (if mixed projects)
+node_modules/
+*.ts
+*.js
+*.mjs
+*.cjs
+
+# IDE/editor settings
+.vscode/
+.idea/
+*.code-workspace
+
+# System files
+*.bak
+*.swp
+*.tmp
+
+# Others
+*.zip
+*.tar.gz
+*.egg-info/
+dist/
+build/
+.cache/

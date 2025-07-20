@@ -1,0 +1,155 @@
+# Tool configuration settings
+
+# Tool registry settings
+tool_registry:
+  auto_discovery: true
+  min_confidence_threshold: 0.1
+  max_tools_per_request: 5
+
+# Individual tool configurations
+tools:
+  database_query:
+    enabled: true
+    connection_pool_size: 5
+    query_timeout: 30
+    retry_attempts: 3
+    cache_results: true
+    cache_ttl: 300  # 5 minutes
+    
+  drive_search:
+    enabled: true
+    max_results_default: 10
+    max_results_limit: 50
+    content_extraction: true
+    supported_formats:
+      - pdf
+      - doc
+      - docx
+      - txt
+      - md
+    cache_ttl: 600  # 10 minutes
+    
+  data_analysis:
+    enabled: true
+    default_analysis_type: "summary"
+    enable_predictions: false
+    max_data_points: 10000
+    processing_timeout: 60
+    
+  summary_generation:
+    enabled: true
+    default_format: "mixed"
+    include_recommendations: true
+    max_summary_length: 5000
+    personalization: true
+
+# Tool priority settings
+tool_priorities:
+  # For user data requests
+  user_data:
+    - database_query
+    - data_analysis
+    - summary_generation
+    
+  # For documentation requests  
+  documentation:
+    - drive_search
+    
+  # For analysis requests
+  analysis:
+    - database_query
+    - data_analysis
+    
+  # For summary requests
+  summary:
+    - data_analysis
+    - summary_generation
+
+# Tool combination templates
+tool_combinations:
+  weekly_summary:
+    description: "Generate a comprehensive weekly activity summary"
+    tools:
+      - name: database_query
+        parameters:
+          query_type: "user_weekly_summary"
+        priority: 1
+      - name: data_analysis
+        parameters:
+          analysis_type: "summary"
+          time_period: "weekly"
+        priority: 2
+        depends_on: ["database_query"]
+      - name: summary_generation
+        parameters:
+          summary_type: "weekly_report"
+          include_recommendations: true
+        priority: 3
+        depends_on: ["data_analysis"]
+        
+  activity_trends:
+    description: "Analyze activity trends and patterns"
+    tools:
+      - name: database_query
+        parameters:
+          query_type: "user_historical_trends"
+        priority: 1
+      - name: data_analysis
+        parameters:
+          analysis_type: "trends"
+          include_predictions: true
+        priority: 2
+        depends_on: ["database_query"]
+        
+  documentation_search:
+    description: "Search for relevant documentation"
+    tools:
+      - name: drive_search
+        parameters:
+          include_content: true
+          max_results: 10
+        priority: 1
+
+# Performance settings
+performance:
+  max_concurrent_tools: 3
+  tool_execution_timeout: 120
+  result_cache_size: 100
+  enable_parallel_execution: true
+  
+# Error handling
+error_handling:
+  retry_failed_tools: true
+  max_retries: 2
+  fallback_strategies:
+    database_query:
+      - "Try with different query_type"
+      - "Use cached results if available"
+    drive_search:
+      - "Try with broader search terms"
+      - "Search in specific file types only"
+  continue_on_partial_failure: true
+  
+# Logging and monitoring
+logging:
+  log_tool_execution: true
+  log_performance_metrics: true
+  log_user_interactions: true
+  sensitive_data_masking: true
+
+# Future tool configurations (disabled by default)
+future_tools:
+  notion_search:
+    enabled: false
+    description: "Search Notion workspace for team knowledge"
+    use_cases: ["team_knowledge", "project_docs", "meeting_notes"]
+    
+  slack_notification:
+    enabled: false
+    description: "Send notifications and updates via Slack"
+    use_cases: ["team_communication", "status_updates", "alerts"]
+    
+  email_tool:
+    enabled: false
+    description: "Send email summaries and reports"
+    use_cases: ["scheduled_reports", "notifications", "sharing"]
